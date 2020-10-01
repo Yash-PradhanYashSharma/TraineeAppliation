@@ -2,6 +2,7 @@ package com.yash.registration.domain;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,6 +30,7 @@ public class User {
 	 */
 	@Email(message = "Username must be an e-mail")
 	@NotBlank(message = "Please enter a username ")
+	@Column(unique = true)
 	private String username;
 	/**
 	 * Full name of the user
@@ -45,8 +47,10 @@ public class User {
 	 */
 	private Date created_at;
 
+	
+
 	public User(Long id,
-			@Email(message = "Username must be an e-mail") @NotBlank(message = "Please Enter Your Fullname") String username,
+			@Email(message = "Username must be an e-mail") @NotBlank(message = "Please enter a username ") String username,
 			@NotBlank(message = "Name is mandatory") String fullname,
 			@NotBlank(message = "Password is Required") String password, Date created_at) {
 		super();

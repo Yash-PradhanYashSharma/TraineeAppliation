@@ -16,10 +16,14 @@ import com.yash.registration.domain.User;
 import com.yash.registration.service.UserService;
 import com.yash.registration.service.ValidationErrorService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @RestController
 @CrossOrigin
 @RequestMapping("")
 public class UserController {
+	public static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 	@Autowired
 	private UserService userService;
 
@@ -28,10 +32,15 @@ public class UserController {
 
 	@PostMapping("/register")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody User user, BindingResult result) {
+		LOGGER.debug("inside registerUser() method");
+
 		ResponseEntity<?> errorMap = validationErrorService.mapValidationError(result);
-		if (errorMap != null)
+		if (errorMap != null) {
+			LOGGER.info("USER NOT CREATED");
 			return errorMap;
+		}
 		User newUser = userService.saveUser(user);
+		LOGGER.info(user.toString() + " is Created");
 		return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
 	}
 
