@@ -14,17 +14,16 @@ import com.yash.registration.service.ValidationErrorService;
 @Service
 public class ValidationErrorServiceImplementation implements ValidationErrorService {
 
-	@Override
-	public ResponseEntity<?> mapValidationError(BindingResult result) {
-
-		if(result.hasErrors()) {
-			Map<String, String> errorMap = new HashMap<>();
-			for(FieldError fieldError : result.getFieldErrors()) {
-				errorMap.put(fieldError.getField(), fieldError.getDefaultMessage());
-			}
-			return new ResponseEntity<Map<String,String>>(errorMap, HttpStatus.BAD_REQUEST);
-		}
-		return null;
-	}
+    @Override
+    public ResponseEntity<?> mapValidationError(BindingResult result) {
+        if (result.hasErrors()) {
+            Map<String, String> errorMap = new HashMap<>();
+            for (FieldError fieldError : result.getFieldErrors()) {
+                errorMap.put(fieldError.getField(), fieldError.getDefaultMessage());
+            }
+            return new ResponseEntity<Map<String, String>>(errorMap, HttpStatus.BAD_REQUEST);
+        }
+        return null;
+    }
 
 }
